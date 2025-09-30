@@ -12,7 +12,6 @@ from api.models import Product
 @pytest.mark.django_db
 class TestProductViewSet(APITestCase):
 
-    # Criando uma instância de Product para os testes
     def setUp(self):
         self.user = UserFactory()
         token = Token.objects.create(user=self.user)
@@ -26,7 +25,6 @@ class TestProductViewSet(APITestCase):
         )
 
 
-    # Testando se o get da listagem dos produtos irá retornar status 200
     def test_list_products(self):
         token = Token.objects.get(user__username=self.user.username)
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
@@ -34,7 +32,7 @@ class TestProductViewSet(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    # Testando se o post de um novo produto irá retornar 201
+
     def test_create_product(self):
         token = Token.objects.get(user__username=self.user.username)
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
