@@ -43,6 +43,13 @@ INSTALLED_APPS = [
     "product",
     "rest_framework.authtoken",
     "rest_framework",
+    'order',
+    'product',	
+    'rest_framework.authtoken',
+    "rest_framework"
+
+    'rest_framework',
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -132,6 +139,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
+
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 5,
@@ -140,11 +148,17 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ],
+=======
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 5,
+    
 }
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
@@ -153,3 +167,8 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+=======
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
