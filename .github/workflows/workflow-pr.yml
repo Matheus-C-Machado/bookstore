@@ -25,7 +25,7 @@ jobs:
         python -m pip install --upgrade poetry
 
     - name: Install dependencies
-      run: python -m poetry install --dev
+      run: python -m poetry install --with dev
 
     - name: Set environment variables
       run: |
