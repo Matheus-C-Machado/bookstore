@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         shell: bash
-        run: python -m poetry install
+        run: python -m poetry install --only dev
 
       - name: Test
         run: |
