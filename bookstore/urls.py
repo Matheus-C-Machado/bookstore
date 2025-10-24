@@ -20,6 +20,8 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework.authtoken.views import obtain_auth_token
 
+from bookstore import settings
+
 urlpatterns = [
     # path("__debug__/", include(debug_toolbar.urls)),
     path("admin/", admin.site.urls),
@@ -27,3 +29,7 @@ urlpatterns = [
     re_path("bookstore/(?P<version>(v1|v2))/", include("product.urls")),
     path("api-token-auth/", obtain_auth_token, name="api_token_auth"),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
