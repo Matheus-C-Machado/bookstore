@@ -1,38 +1,35 @@
-name: Python Pull Request Workflow
-on: [pull_request]
+name: Python application
+
+on: [push]
+
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.12]
 
-  qa:
-    name: Quality check
-    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up Python
-        uses: actions/setup-python@master
-        with:
-          python-version: 3.9
-      - name: Install poetry
-        run: |
-          pip install -U pip
-          pip install poetry
-          poetry install
-        env:
-          POETRY_VIRTUALENVS_CREATE: false
+    - uses: actions/checkout@v2
 
-      - name: View poetry --help
-        run: poetry --help
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
-        shell: bash
-        run: python -m poetry install --only dev
+    - name: Install poetry
+      run: |
+        python -m ensurepip
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade poetry
 
-      - name: Test
-        run: |
-          poetry run python manage.py test
-      - name: Wemake Python Stylguide
-        uses: wemake-services/wemake-python-styleguide@0.16.0
-        continue-on-error: true
-        with:
-          reporter: 'github-pr-review'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Install dependencies
+      run: python -m poetry install --with dev
+
+    - name: Set environment variables
+      run: |
+        echo "DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1" >> $GITHUB_ENV
+
+    - name: Run tests
+      run: poetry run python manage.py test
