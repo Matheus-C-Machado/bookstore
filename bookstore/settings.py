@@ -159,4 +159,3 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'matheuscmachado.pythonanywhere.com']
 if DEBUG:
     INSTALLED_APPS.append("debug_toolbar")
 
-    matheuscmachado.pythonanywhere.com
