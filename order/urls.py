@@ -1,12 +1,10 @@
-from django.urls import path, include
 from rest_framework import routers
-
-from order import viewsets
+from django.urls import path, include
+from order.viewsets import OrderViewSet
 
 router = routers.SimpleRouter()
-router.register(r'order',viewsets.OrderViewSet, basename='order')
-
+router.register(r"", OrderViewSet, basename="order")  # "" vazio funciona
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]
