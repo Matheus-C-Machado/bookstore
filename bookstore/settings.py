@@ -39,19 +39,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
+    "rest_framework",
+    "rest_framework.authtoken",
     "order",
     "product",
-    "rest_framework.authtoken",
-    "rest_framework",
-    'order',
-    'product',	
-    'rest_framework.authtoken',
-    "rest_framework"
-
-    'rest_framework',
     "debug_toolbar",
 ]
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -148,11 +141,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ],
-=======
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 5,
-    
 }
 
 INTERNAL_IPS = [
@@ -160,15 +148,10 @@ INTERNAL_IPS = [
 ]
 
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-default-key")
+DEBUG = int(os.environ.get("DEBUG", default=1))
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(" ")
 
-DEBUG = int(os.environ.get("DEBUG", default=0))
-
-# 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
-# For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-=======
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
